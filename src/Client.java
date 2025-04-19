@@ -59,9 +59,9 @@ public class Client {
     }
 
     @Override
-    public String toString() {
-        return String.format("Id: %d\nName: %s\nPhone: %s", getID(), getName(), getPhone());
-    }   
+   public String toString() {
+    return String.format("Id: %d\nName: %s\nPhone: %s\nPayment Type: %s", getID(), getName(), getPhone(), (payingOff instanceof Card) ? "Card" : "Cash");
+   }
     
 }
     
