@@ -11,11 +11,31 @@ public class Client {
      private final int ID;
     private String name;
     private String phone;
+    private PayingOff payingOff;
 
-    public Client(int ID, String name, String phone) {
+    public Client(int ID, String name, String phone, String paymentType, int cardID) {
         this.ID = ID;
         setName(name);
         setPhone(phone);
+        DeterminePayment(paymentType, cardID);
+    }
+    
+    public void DeterminePayment(String paymentType,int cardID){
+    if (paymentType.equalsIgnoreCase("cash")) {
+            payingOff = new Cash();
+        } else if (paymentType.equalsIgnoreCase("card")) {
+            payingOff = new Card(cardID);
+        } else {
+            System.out.println("Invalid payment type. Defaulting to cash.");
+            payingOff = new Cash();
+        }
+        
+    }
+      public int getCardID() {
+        if (payingOff instanceof Card) {
+            return ((Card) payingOff).getIDcard();
+        }
+        return 0;
     }
 
     public int getID() {
