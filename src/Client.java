@@ -8,7 +8,7 @@
  * @author ggggh
  */
 public class Client {
-     private final int ID;
+    private final int ID;
     private String name;
     private String phone;
     private PayingOff payingOff;
