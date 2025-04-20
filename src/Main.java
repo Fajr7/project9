@@ -10,8 +10,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         ArrayList<Service> services = new ArrayList<Service>();
-        fillList(services);
 
+        fillList(services);
+        Booking B1 = new Booking();
+        LocalDateTime T = new LocalDateTime(2025, 4, 23, 25);
+        int serviceID;
+        String service;
         System.out.println("-------Welcome To Car Wash Booking System!-------");
         System.out.println("Select one of the following options to continue:");
 
@@ -62,8 +66,20 @@ public class Main {
                     break;
 
                 case 4:
-
-                    break;
+                    System.out.println("Enter service ID");
+                    serviceID = input.nextInt();
+                    service = null;
+                    for (Service service1 : services) {
+                        if (service1.getID() == serviceID) {
+                            Service Service = service1;
+                            break;
+                        }
+                    }
+                    if (service == null) {
+                        System.out.println("service ID is invalid");
+                        break;
+                    }
+                    
 
                 case 5://show Booking
                     if (booking != null) {
