@@ -1,6 +1,6 @@
 
 public interface Bookable {
-  public void bookk();
+  public abstract void book();
 
 
   

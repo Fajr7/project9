@@ -56,7 +56,7 @@ public class Booking {
         this.service = service;
     }
 
-    public ScheduleEntry getSchedulEntry() {
+    public ScheduleEntry getScheduleEntry() {
         return schedulEntry;
     }
 
@@ -74,7 +74,7 @@ public class Booking {
 
     @Override
     public String toString() {
-        return String.format( "ID: %d\nService: %s\nSchedulEntry: %s\nClient: %s\nstatus: %s",getID(),getService(),getSchedulEntry(), getClient(),getStatus());
+        return String.format( "ID: %d\nService: %s\nSchedulEntry: %s\nClient: %s\nstatus: %s",getID(),getService(),getScheduleEntry(), getClient(),getStatus());
     }
    
 
