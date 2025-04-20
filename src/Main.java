@@ -6,14 +6,20 @@
 public class Main {
 
     public static void main(String[] args) {
-
+     Scanner input = new Scanner (System.in);
+        
         int choice;
         do {
             menu();
             choice = input.nextInt();//Name Object of Scanner
             switch (choice) {
 
-                case 1:
+                case 1://show all services
+                 System.out.println("***All services***");
+                  for(service service : services);
+                  System.out.println(service);//toString
+                  service.displaySchedulEntry();
+                  System.out.println("-------------------------------------");
 
                     break;
                     
@@ -35,7 +41,13 @@ public class Main {
 
                     break;
 
-                case 5:
+                case 5://show Booking
+                     if (booking != null){
+                     System.out.println(booking); 
+                     System.out.printf("Total is %.2 SAR/n", booking.getService().calcPrice());
+                    }else{
+                     System.out.println("No booking yet!");
+                    }
 
                     break;
 
