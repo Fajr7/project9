@@ -1,4 +1,7 @@
 
+package newpackage1;
+
+
 public final class ScheduleEntry implements Bookable {
 
     private int ID;

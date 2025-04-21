@@ -1,3 +1,5 @@
+package newpackage1;
+
 
 public class Wash extends Service {
 

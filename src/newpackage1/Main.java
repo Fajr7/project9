@@ -1,18 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+package newpackage1;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Main {
 
+    public static ArrayList<Service> services = new ArrayList<Service>();
+    static Booking B1 = null;
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        ArrayList<Service> services = new ArrayList<Service>();
 
         fillList(services);
-        Booking B1 = new Booking();
+
         LocalDateTime T = new LocalDateTime(2025, 4, 23, 25);
         int serviceID;
         String service;
@@ -22,15 +22,22 @@ public class Main {
         int choice;
         Booking booking = null;
         do {
+            try{
             menu();
             choice = input.nextInt();//Name Object of Scanner
             switch (choice) {
 
                 case 1://show all services
+
+                    boolean flag = true;
                     System.out.println("***All services***");
-                    for (Service service : services) {
-                        System.out.println(service);//toString
-                        service.displaySchedulEntry();
+                    for (Service S : services) {
+                        System.out.println(S);//toString
+                        S.displaySchedulEntry();
+
+                        if (S instanceof Polish) {
+                            System.out.println(((Polish) S).describeService());
+                        }
                         System.out.println("-------------------------------------");
                     }
                     break;
@@ -79,12 +86,11 @@ public class Main {
                         System.out.println("service ID is invalid");
                         break;
                     }
-                    
 
                 case 5://show Booking
                     if (booking != null) {
                         System.out.println(booking);
-                        System.out.printf("Total is %.2 SAR/n", booking.getService().calcPrice());
+                        System.out.printf("Total is %.2f SAR/n", booking.getService().calcPrice());
                     } else {
                         System.out.println("No booking yet!");
                     }
@@ -104,7 +110,6 @@ public class Main {
                         if (answer == 'y' || answer == 'Y') {
                             booking.setStatus("Cancelled");
                             System.out.println(booking);
-
                             booking.getScheduleEntry().setAvailable(true);
 
                             System.out.printf("Total is: %.2f SAR\n", booking.getService().calcPrice());
@@ -118,15 +123,28 @@ public class Main {
                     break;
 
                 case 8:
-
+                    GuiWashSystem.main(null);
                     break;
 
                 case 9:
-
+                    ReadText rt = new ReadText();
+                    rt.openTextFile("services.txt");
+                    rt.readFromFile();
+                    rt.closeFile();
                     break;
 
                 case 10:
-
+                    WriteText wf = new WriteText();
+                    wf.openTextFile("services.txt");
+                    if (services.isEmpty()) {
+                        System.out.println("No services yet.");
+                    } else {
+                        for (Service ele : services) {
+                            wf.writeToFile(ele);
+                        }
+                    }
+                    wf.closeFile();
+                    System.out.println("All services saved to the text file services.txt");
                     break;
                 case 11://Exit
                     System.out.println("Thank you!");
@@ -134,6 +152,17 @@ public class Main {
 
                 default:
                     System.out.println("Invalid option!");
+            }}catch (InputMismatchException ex) {
+                System.err.println("Invalid input");
+                input.nextLine();
+            } catch (NullPointerException ex) {
+                System.err.println(ex);
+            } catch (ClassCastException ex) {
+                System.err.println(ex);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.err.println(ex);
+            } catch (Exception ex) {
+                System.err.println(ex);
             }
 
         } while (choice != 11);
@@ -145,15 +174,14 @@ public class Main {
                 + "What do you want ? ");
         System.out.print("\n1. Show All Services\n"
                 + "2. Show Wash Services\n"
-                + "3. Remove Service"
-                + "4. Add Appointment\n"
+                + "3. Remove Service \n4. Add Appointment\n"
                 + "5. New Booking\n"
                 + "6. Show Booking\n"
                 + "7. Cancel Booking\n"
-                + "8. GUI"
-                + "9. Read from files"
-                + "10. Write to files"
-                + "11. Exit\n"
+                + "8. GUI\n"
+                + "9. Read from files\n"
+                + "10.Write to files\n"
+                + "11.Exit\n"
                 + ">> ");
     }
 
