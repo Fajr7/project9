@@ -2,10 +2,12 @@ package newpackage1;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Main {
 
     public static ArrayList<Service> services = new ArrayList<Service>();
+    //(Client client, Service service, ScheduleEntry schedulEntry)
     static Booking B1 = null;
 
     public static void main(String[] args) {
@@ -19,140 +21,148 @@ public class Main {
         System.out.println("-------Welcome To Car Wash Booking System!-------");
         System.out.println("Select one of the following options to continue:");
 
-        int choice;
+        int choice = 0;
         Booking booking = null;
         do {
-            try{
-            menu();
-            choice = input.nextInt();//Name Object of Scanner
-            switch (choice) {
+            try {
+                menu();
+                choice = input.nextInt();//Name Object of Scanner
+                switch (choice) {
 
-                case 1://show all services
+                    case 1://show all services
 
-                    boolean flag = true;
-                    System.out.println("***All services***");
-                    for (Service S : services) {
-                        System.out.println(S);//toString
-                        S.displaySchedulEntry();
+                        boolean flag = true;
+                        System.out.println("***All services***");
+                        for (Service S : services) {
+                            System.out.println(S);//toString
+                            S.displaySchedulEntry();
 
-                        if (S instanceof Polish) {
-                            System.out.println(((Polish) S).describeService());
-                        }
-                        System.out.println("-------------------------------------");
-                    }
-                    break;
-
-                case 2:// Show Wash Services
-
-                    System.out.println("*** Wash Services ***");
-                    for (Service Listservice : services) {// Name of ArrayList
-                        if (Listservice instanceof Wash) {
-                            System.out.println(Listservice);
+                            if (S instanceof Polish) {
+                                System.out.println(((Polish) S).describeService());
+                            }
                             System.out.println("-------------------------------------");
                         }
-                    }
-                    break;
-
-                case 3: // Remove service
-                    System.out.print("Enter the ID of the service you want to remove: ");
-                    int idToRemove = input.nextInt();
-                    boolean removed = false;
-
-                    for (int i = 0; i < services.size(); i++) {
-                        if (services.get(i).getID() == idToRemove) {
-                            services.remove(i);
-                            System.out.println("Service removed successfully.");
-                            removed = true;
-                            break;
-                        }
-                    }
-
-                    if (!removed) {
-                        System.out.println("Service not found.");
-                    }
-                    break;
-
-                case 4:
-                    System.out.println("Enter service ID");
-                    serviceID = input.nextInt();
-                    service = null;
-                    for (Service service1 : services) {
-                        if (service1.getID() == serviceID) {
-                            Service Service = service1;
-                            break;
-                        }
-                    }
-                    if (service == null) {
-                        System.out.println("service ID is invalid");
                         break;
-                    }
 
-                case 5://show Booking
-                    if (booking != null) {
-                        System.out.println(booking);
-                        System.out.printf("Total is %.2f SAR/n", booking.getService().calcPrice());
-                    } else {
-                        System.out.println("No booking yet!");
-                    }
+                    case 2:// Show Wash Services
 
-                    break;
+                        System.out.println("*** Wash Services ***");
+                        for (Service Listservice : services) {// Name of ArrayList
+                            if (Listservice instanceof Wash) {
+                                System.out.println(Listservice);
+                                System.out.println("-------------------------------------");
+                            }
+                        }
+                        break;
 
-                case 6:
+                    case 3: // Remove service
+                        System.out.print("Enter the ID of the service you want to remove: ");
+                        int idToRemove = input.nextInt();
+                        boolean removed = false;
 
-                    break;
+                        for (int i = 0; i < services.size(); i++) {
+                            if (services.get(i).getID() == idToRemove) {
+                                services.remove(i);
+                                System.out.println("Service removed successfully.");
+                                removed = true;
+                                break;
+                            }
+                        }
 
-                case 7://cancel booking
-                    if (booking != null) {
-                        System.out.print("Are you sure you want to cancel your Booking? (Y/N): ");
-                        char answer;
-                        answer = input.next().charAt(0);
+                        if (!removed) {
+                            System.out.println("Service not found.");
+                        }
+                        break;
 
-                        if (answer == 'y' || answer == 'Y') {
-                            booking.setStatus("Cancelled");
+                    case 4://new booking
+                        
+    System.out.println("Enter service ID");
+    serviceID = input.nextInt();
+    Service selectedService = null;
+
+    for (Service service1 : services) {
+        if (service1.getID() == serviceID) {
+            selectedService = service1;
+            break;
+        }
+    }
+
+    if (selectedService == null) {
+        System.out.println("Service ID is invalid");
+        break;
+    }
+//Client(int ID, String name, String phone, String paymentType, int cardID)
+    // إنشاء عميل وجدول زمني وحجز
+    Client c = new Client(115500099,"Fajr","Saudi Phone","cash",3550);
+    ScheduleEntry s = new ScheduleEntry(301, new LocalDateTime(2025, 4, 23, 10), false);
+    B1 = new Booking(c, selectedService, s);
+    System.out.println("Booking added successfully!");
+    break;
+
+                    case 5://show Booking
+                        if (booking != null) {
                             System.out.println(booking);
-                            booking.getScheduleEntry().setAvailable(true);
-
-                            System.out.printf("Total is: %.2f SAR\n", booking.getService().calcPrice());
-                            System.out.println("Your booking has been cancelled!");
+                            System.out.printf("Total is %.2f SAR/n", booking.getService().calcPrice());
                         } else {
-                            System.out.println("Your booking is still confirmed!");
+                            System.out.println("No booking yet!");
                         }
-                    } else {
-                        System.out.println("No booking yet!");
-                    }
-                    break;
 
-                case 8:
-                    GuiWashSystem.main(null);
-                    break;
+                        break;
 
-                case 9:
-                    ReadText rt = new ReadText();
-                    rt.openTextFile("services.txt");
-                    rt.readFromFile();
-                    rt.closeFile();
-                    break;
+                    case 6:
+                        //cancel booking
+                        if (booking != null) {System.out.print("Are you sure you want to cancel your Booking? (Y/N): ");
+                            char answer;
+                            answer = input.next().charAt(0);
 
-                case 10:
-                    WriteText wf = new WriteText();
-                    wf.openTextFile("services.txt");
-                    if (services.isEmpty()) {
-                        System.out.println("No services yet.");
-                    } else {
-                        for (Service ele : services) {
-                            wf.writeToFile(ele);
+                            if (answer == 'y' || answer == 'Y') {
+                                booking.setStatus("Cancelled");
+                                System.out.println(booking);
+                                booking.getScheduleEntry().setAvailable(true);
+
+                                System.out.printf("Total is: %.2f SAR\n", booking.getService().calcPrice());
+                                System.out.println("Your booking has been cancelled!");
+                            } else {
+                                System.out.println("Your booking is still confirmed!");
+                            }
+                        } else {
+                            System.out.println("No booking yet!");
                         }
-                    }
-                    wf.closeFile();
-                    System.out.println("All services saved to the text file services.txt");
-                    break;
-                case 11://Exit
-                    System.out.println("Thank you!");
-                    break;
+                        break;
 
-                default:
-                    System.out.println("Invalid option!");
-            }}catch (InputMismatchException ex) {
+                    case 7:
+                        GuiWashSystem.main(null);
+                    case 8:// Write to files
+                        WriteText wf = new WriteText();
+                        wf.openTextFile("services.txt");
+                        if (services.isEmpty()) {
+                            System.out.println("No services yet.");
+                        } else {
+                            for (Service ele : services) {
+                                wf.writeToFile(ele);
+                            }
+                        }
+                        wf.closeFile();
+                        System.out.println("All services saved to the text file services.txt");
+
+                        break;
+
+                    case 9:// Read from files
+                        ReadText rt = new ReadText();
+                        rt.openTextFile("services.txt");
+                        rt.readFromFile();
+                        rt.closeFile();
+                        break;
+
+                    case 10://Exit
+                        System.out.println("Thank you!");
+
+                        break;
+
+                    default:
+                        System.out.println("Invalid option!");
+                }
+            } catch (InputMismatchException ex) {
                 System.err.println("Invalid input");
                 input.nextLine();
             } catch (NullPointerException ex) {
@@ -165,7 +175,7 @@ public class Main {
                 System.err.println(ex);
             }
 
-        } while (choice != 11);
+        } while (choice != 10);
 
     }
 
@@ -174,14 +184,13 @@ public class Main {
                 + "What do you want ? ");
         System.out.print("\n1. Show All Services\n"
                 + "2. Show Wash Services\n"
-                + "3. Remove Service \n4. Add Appointment\n"
-                + "5. New Booking\n"
-                + "6. Show Booking\n"
-                + "7. Cancel Booking\n"
-                + "8. GUI\n"
+                + "3. Remove Service \n4.New Booking\n"
+                + "5. Show Booking\n"
+                + "6. Cancel Booking\n"
+                + "7. GUI\n"
+                + "8. Write to files\n"
                 + "9. Read from files\n"
-                + "10.Write to files\n"
-                + "11.Exit\n"
+                + "10.Exit\n"
                 + ">> ");
     }
 
