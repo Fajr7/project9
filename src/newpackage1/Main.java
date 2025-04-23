@@ -74,12 +74,12 @@ public class Main {
                         }
                         break;
 
-                    case 4://new booking
-                        
-    System.out.println("Enter service ID");
+                    case 4: // New Booking
+    System.out.println("Enter service ID:");
     serviceID = input.nextInt();
     Service selectedService = null;
 
+    
     for (Service service1 : services) {
         if (service1.getID() == serviceID) {
             selectedService = service1;
@@ -87,18 +87,47 @@ public class Main {
         }
     }
 
+    
     if (selectedService == null) {
         System.out.println("Service ID is invalid");
         break;
     }
-//Client(int ID, String name, String phone, String paymentType, int cardID)
-    // إنشاء عميل وجدول زمني وحجز
-    Client c = new Client(115500099,"Fajr","Saudi Phone","cash",3550);
-    ScheduleEntry s = new ScheduleEntry(301, new LocalDateTime(2025, 4, 23, 10), false);
+
+   
+    System.out.println("Enter your ID:");
+    int clientID = input.nextInt();  
+
+    System.out.println("Enter your name:");
+    String name = input.next();  
+
+    System.out.println("Enter your phone number:");
+    String phone = input.next();  
+
+    System.out.println("Enter your payment type (cash/card):");
+    String paymentType = input.next();  
+    int cardID = 0;
+    if (paymentType.equalsIgnoreCase("card")) {
+        System.out.println("Enter your card ID:");
+        cardID = input.nextInt(); 
+    }
+
+    
+    Client c = new Client(clientID, name, phone, paymentType, cardID);
+
+    
+    System.out.println("Enter the date and time for your booking (Year Month Day Hour):");
+    int year = input.nextInt();
+    int month = input.nextInt();
+    int day = input.nextInt();
+    int hour = input.nextInt();
+    ScheduleEntry s = new ScheduleEntry(301, new LocalDateTime(year, month, day, hour), false);
+
+    
     B1 = new Booking(c, selectedService, s);
+
+    
     System.out.println("Booking added successfully!");
     break;
-
                     case 5://show Booking
                         if (booking != null) {
                             System.out.println(booking);
