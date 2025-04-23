@@ -1,45 +1,40 @@
 package newpackage1;
 
-
-public class Wash extends Service {
-
-    private String type;
-
-    public Wash(String type) {
-        this.type = type;
-    }
-
-    public Wash(String type, int ID, String name, double price, ScheduleEntry[] schedulEntry) {
-        super(ID, name, price, schedulEntry);
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Wash{" + "type=" + type + '}';
-    }
-
-    @Override
-    public double calcPrice() {
-        double basePrice = super.getPrice();
-        double typeMultiplier = 1.0;
-        if (type.equals("deluxe")) {
-            typeMultiplier = 1.3;
-
-        } else if (type.equals("standars")) {
-            typeMultiplier = 1.0;
-
-        }double finalPrice=basePrice *typeMultiplier ;
-        return finalPrice;
-
-    }
-
+ 
+import java.io.FileNotFoundException; 
+import java.util.Formatter; 
+import java.util.FormatterClosedException; 
+ 
+public class WriteText { 
+ 
+    private Formatter output; 
+ 
+    public void openTextFile(String fileName) { 
+        try { 
+            output = new Formatter(fileName); 
+        } catch (SecurityException ex) { 
+            System.err.println("You do not have write access to this file."); 
+            System.err.println(ex); 
+        } catch (FileNotFoundException ex) { 
+            System.err.println("Error opening or creating file."); 
+            System.err.println(ex); 
+        } 
+    } 
+ 
+    public void writeToFile(Service s) { 
+ 
+        try { 
+            output.format(s.toString() + "\n"); 
+            output.format("\n---------------------------------------------\n"); 
+        } catch (FormatterClosedException ex) { 
+            System.err.println("Error writing to file"); 
+            System.err.println(ex); 
+        } 
+    } 
+ 
+    public void closeFile() { 
+        if (output != null) { 
+            output.close(); 
+        } 
+    } 
 }
