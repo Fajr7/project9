@@ -142,7 +142,7 @@ public class Main {
                             char answer;
                             answer = input.next().charAt(0);
 
-                            if (answer == 'y' || answer == 'Y') {
+                            if (answer == 'N' || answer == 'Y') {
                                 B1 .setStatus("Cancelled");
                                 System.out.println(B1 );
                                B1 .getScheduleEntry().setAvailable(true);
