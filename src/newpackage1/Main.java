@@ -79,7 +79,6 @@ public class Main {
     serviceID = input.nextInt();
     Service selectedService = null;
 
-    
     for (Service service1 : services) {
         if (service1.getID() == serviceID) {
             selectedService = service1;
@@ -87,7 +86,6 @@ public class Main {
         }
     }
 
-    
     if (selectedService == null) {
         System.out.println("Service ID is invalid");
         break;
@@ -125,13 +123,13 @@ public class Main {
     
     B1 = new Booking(c, selectedService, s);
 
-    booking=B1;
+    
     System.out.println("Booking added successfully!");
     break;
                     case 5://show Booking
-                        if (booking != null) {
-                            System.out.println(booking);
-                            System.out.printf("Total is %.2f SAR/n", booking.getService().calcPrice());
+                        if (B1 != null) {
+                            System.out.println(B1 );
+                            System.out.printf("Total is %.2f SAR/n", B1 .getService().calcPrice());
                         } else {
                             System.out.println("No booking yet!");
                         }
@@ -140,16 +138,16 @@ public class Main {
 
                     case 6:
                         //cancel booking
-                        if (booking != null) {System.out.print("Are you sure you want to cancel your Booking? (Y/N): ");
+                        if (B1  != null) {System.out.print("Are you sure you want to cancel your Booking? (Y/N): ");
                             char answer;
                             answer = input.next().charAt(0);
 
                             if (answer == 'y' || answer == 'Y') {
-                                booking.setStatus("Cancelled");
-                                System.out.println(booking);
-                                booking.getScheduleEntry().setAvailable(true);
+                                B1 .setStatus("Cancelled");
+                                System.out.println(B1 );
+                               B1 .getScheduleEntry().setAvailable(true);
 
-                                System.out.printf("Total is: %.2f SAR\n", booking.getService().calcPrice());
+                                System.out.printf("Total is: %.2f SAR\n", B1 .getService().calcPrice());
                                 System.out.println("Your booking has been cancelled!");
                             } else {
                                 System.out.println("Your booking is still confirmed!");
@@ -213,7 +211,7 @@ public class Main {
                 + "What do you want ? ");
         System.out.print("\n1. Show All Services\n"
                 + "2. Show Wash Services\n"
-                + "3. Remove Service \n4.New Booking\n"
+                + "3. Remove Service \n4. New Booking\n"
                 + "5. Show Booking\n"
                 + "6. Cancel Booking\n"
                 + "7. GUI\n"
