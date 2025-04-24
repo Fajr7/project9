@@ -125,7 +125,7 @@ public class Main {
     
     B1 = new Booking(c, selectedService, s);
 
-    
+    booking=B1;
     System.out.println("Booking added successfully!");
     break;
                     case 5://show Booking
