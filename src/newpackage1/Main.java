@@ -18,9 +18,7 @@ public class Main {
         LocalDateTime T = new LocalDateTime(2025, 4, 23, 25);
         int serviceID;
         String service;
-        System.out.println("-------Welcome To Car Wash Booking System!-------");
-        System.out.println("Select one of the following options to continue:");
-
+        
         int choice = 0;
         Booking booking = null;
         do {
@@ -208,7 +206,7 @@ public class Main {
 
     public static void menu() {
         System.out.println("*** Welcome To Our Wash System ***"
-                + "What do you want ? ");
+                + "\nWhat do you want ? ");
         System.out.print("\n1. Show All Services\n"
                 + "2. Show Wash Services\n"
                 + "3. Remove Service \n4. New Booking\n"
@@ -221,16 +219,27 @@ public class Main {
                 + ">> ");
     }
 
+  
     public static void fillList(ArrayList<Service> list) {
-        ScheduleEntry[] scheduleEntry = new ScheduleEntry[2];
-        ScheduleEntry[] schedule = new ScheduleEntry[2];
-        schedule[0] = new ScheduleEntry(201, new LocalDateTime(2025, 4, 22, 10), true);
-        schedule[1] = new ScheduleEntry(202, new LocalDateTime(2025, 4, 22, 14), true);
+        ScheduleEntry[] schedule1 = new ScheduleEntry[2];
+        schedule1[0] = new ScheduleEntry(201, new LocalDateTime(2025, 4, 22, 10), true);
+        schedule1[1] = new ScheduleEntry(202, new LocalDateTime(2025, 4, 22, 14), true);
 
-        list.add(new Wash("Hand", 101, "Exterior Wash", 50, null));
-        list.add(new Wash("Auto", 102, "Interior Wash", 50, null));
-        list.add(new Polish("3D Speed Car", 103, "Interior Polish", 100, null));
-        list.add(new Polish("Turtle Wax 1", 104, "Exterior Polish", 600, null));
+        ScheduleEntry[] schedule2 = new ScheduleEntry[2];
+        schedule2[0] = new ScheduleEntry(203, new LocalDateTime(2025, 4, 23, 10), true);
+        schedule2[1] = new ScheduleEntry(204, new LocalDateTime(2025, 4, 23, 14), true);
 
+        ScheduleEntry[] schedule3 = new ScheduleEntry[2];
+        schedule3[0] = new ScheduleEntry(205, new LocalDateTime(2025, 4, 24, 10), true);
+        schedule3[1] = new ScheduleEntry(206, new LocalDateTime(2025, 4, 24, 14), true);
+
+        ScheduleEntry[] schedule4 = new ScheduleEntry[2];
+        schedule4[0] = new ScheduleEntry(207, new LocalDateTime(2025, 4, 25, 10), true);
+        schedule4[1] = new ScheduleEntry(208, new LocalDateTime(2025, 4, 25, 14), true);
+
+        list.add(new Wash("Hand", 101, "Exterior Wash", 50, schedule1));
+        list.add(new Wash("Auto", 102, "Interior Wash", 50, schedule2));
+        list.add(new Polish("3D Speed Car", 103, "Interior Polish", 150, schedule3));
+        list.add(new Polish("Turtle Wax 1", 104, "Exterior Polish", 350, schedule4));
     }
 }
